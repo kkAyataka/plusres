@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{37d79d48-5637-4bac-8c52-3fc7b21c0228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{9284a688-419a-4dca-bb7b-0ffb46118aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\test">
+      <UniqueIdentifier>{83371ccf-5ab0-451e-8def-1a44cf33a146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\plusres">
+      <UniqueIdentifier>{45e4516f-142c-4811-ac45-1a8d687b88be}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\test\test\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\plusres\error.hpp">
+      <Filter>include\plusres</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\plusres\result.hpp">
+      <Filter>include\plusres</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
