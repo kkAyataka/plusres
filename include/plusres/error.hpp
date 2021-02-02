@@ -17,13 +17,13 @@ namespace plusres {
 class Error : public std::exception {
 public:
     explicit Error(const bool is_failed = true) noexcept : Error(is_failed, "") {}
-    explicit Error(const char * message) noexcept : Error(true, message) {}
-    explicit Error(const std::string & message) noexcept : Error(true, message) {}
+    explicit Error(const char * what_a) noexcept : Error(true, what_a) {}
+    explicit Error(const std::string & what_a) noexcept : Error(true, what_a) {}
 
     Error(
-        const std::string & message,
+        const std::string & what_a,
         const Error & e
-    ) : Error(true, message) {
+    ) : Error(true, what_a) {
         stack_ = std::move(e.stack());
     }
 
@@ -33,9 +33,9 @@ public:
 protected:
     Error(
         const bool is_failed,
-        const std::string & message
+        const std::string & what_a
     ) : is_failed_(is_failed),
-        message_(message) {
+        what_(what_a) {
     }
 
 public:
@@ -52,8 +52,8 @@ public:
         return !ok();
     }
 
-    inline const std::string & message() const noexcept {
-        return message_;
+    virtual const char * what() const noexcept {
+        return what_.c_str();
     }
 
     inline std::deque<std::shared_ptr<Error>> stack() const noexcept {
@@ -64,7 +64,7 @@ public:
 
 protected:
     bool is_failed_;
-    std::string message_;
+    std::string what_;
     std::deque<std::shared_ptr<Error>> stack_;
 };
 
