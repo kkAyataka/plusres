@@ -13,10 +13,31 @@
     <Filter Include="include\plusres">
       <UniqueIdentifier>{45e4516f-142c-4811-ac45-1a8d687b88be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{ba2e24bd-110f-46e5-a417-e583990a1b31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\include">
+      <UniqueIdentifier>{df0bc677-7e22-4744-9162-77c0e38ef156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\include\gtest">
+      <UniqueIdentifier>{3bcd95ee-0f38-4a3f-96b1-68af4d3cdcc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib\include\gtest\src">
+      <UniqueIdentifier>{c5951d86-bc72-4273-839b-0059eb44ffa6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\test\lib\include\gtest\src\gtest-all.cc">
+      <Filter>lib\include\gtest\src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\test\test\main.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\test\test\error-test.cpp">
+      <Filter>src\test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\test\test\test\result-test.cpp">
+      <Filter>src\test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
