@@ -34,21 +34,21 @@ protected:
     Error(
         const bool is_failed,
         const std::string & what_a
-    ) : is_failed_(is_failed),
+    ) : is_failed(is_failed),
         what_(what_a) {
     }
 
 public:
-    inline  operator bool() const noexcept {
+    inline operator bool() const noexcept {
         return !ok();
     }
 
 public:
     virtual bool ok() const noexcept {
-        return !is_failed_;
+        return !is_failed;
     }
 
-    virtual bool ng() const noexcept {
+    bool ng() const noexcept {
         return !ok();
     }
 
@@ -63,7 +63,9 @@ public:
     }
 
 protected:
-    bool is_failed_;
+    bool is_failed;
+
+private:
     std::string what_;
     std::deque<std::shared_ptr<Error>> stack_;
 };

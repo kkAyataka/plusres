@@ -34,10 +34,11 @@ public:
 
 public:
     inline operator bool() const {
-        return error_;
+        return !error_;
     }
 
-    inline operator V() noexcept(false) {
+    /** @throws E */
+    inline operator V() const noexcept(false) {
         if (error_) {
             throw error_;
         }
@@ -46,8 +47,25 @@ public:
         }
     }
 
+    /** @throws E */
+    inline void throw_error() const noexcept(false) {
+        if (error_) {
+            throw error_;
+        }
+    }
+
+    inline V no_throw(const V & v) const noexcept {
+        if (error_) {
+            return v;
+        }
+        else {
+            return value_;
+        }
+    }
+
 public:
     inline const E & error() const { return error_; }
+    inline const V & value() const { return value_; }
     inline V & value() { return value_; }
 
 private:
