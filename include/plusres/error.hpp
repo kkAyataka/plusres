@@ -14,16 +14,24 @@
 
 namespace plusres {
 
+enum class Code {
+    Succeeded = 0,
+    Failed = 1,
+};
+
+static Code Succeeded = Code::Succeeded;
+static Code Failed = Code::Failed;
+
 class Error : public std::exception {
 public:
-    explicit Error(const bool is_failed = true) noexcept : Error(is_failed, "") {}
-    explicit Error(const char * what_a) noexcept : Error(true, what_a) {}
-    explicit Error(const std::string & what_a) noexcept : Error(true, what_a) {}
+    explicit Error(const Code code = Code::Failed) noexcept : Error(code, "") {}
+    explicit Error(const char * what_a) noexcept : Error(Code::Failed, what_a) {}
+    explicit Error(const std::string & what_a) noexcept : Error(Code::Failed, what_a) {}
 
     Error(
         const std::string & what_a,
         const Error & e
-    ) : Error(true, what_a) {
+    ) : Error(Code::Failed, what_a) {
         stack_ = std::move(e.stack());
     }
 
@@ -32,9 +40,9 @@ public:
 
 protected:
     Error(
-        const bool is_failed,
+        const Code code,
         const std::string & what_a
-    ) : is_failed(is_failed),
+    ) : code_(code),
         what_(what_a) {
     }
 
@@ -45,10 +53,10 @@ public:
 
 public:
     virtual bool ok() const noexcept {
-        return !is_failed;
+        return (code_ == Code::Succeeded);
     }
 
-    bool ng() const noexcept {
+    bool failed() const noexcept {
         return !ok();
     }
 
@@ -62,10 +70,8 @@ public:
         return s;
     }
 
-protected:
-    bool is_failed;
-
 private:
+    Code code_;
     std::string what_;
     std::deque<std::shared_ptr<Error>> stack_;
 };

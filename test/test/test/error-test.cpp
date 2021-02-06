@@ -9,7 +9,7 @@ TEST(Error, init_def) {
 
     EXPECT_EQ(e, true);
     EXPECT_EQ(e.ok(), false);
-    EXPECT_EQ(e.ng(), true);
+    EXPECT_EQ(e.failed(), true);
     EXPECT_EQ(e.what(), std::string(""));
     EXPECT_EQ(stack.size(), 1);
 }
@@ -30,12 +30,12 @@ class InitTest : public testing::TestWithParam<InitTestParam> {
 TEST_P(InitTest, init_error) {
     const auto p = this->GetParam();
 
-    const plusres::Error e(p.is_error);
+    const plusres::Error e(p.is_error ? plusres::Failed : plusres::Succeeded);
     const auto stack = e.stack();
 
     EXPECT_EQ(e, p.is_error);
     EXPECT_EQ(e.ok(), !p.is_error);
-    EXPECT_EQ(e.ng(), p.is_error);
+    EXPECT_EQ(e.failed(), p.is_error);
     EXPECT_EQ(e.what(), std::string(""));
     EXPECT_EQ(stack.size(), 1);
     EXPECT_EQ(stack[0]->what(), std::string(""));
@@ -49,7 +49,7 @@ TEST_P(InitTest, init_what_s) {
 
     EXPECT_EQ(e, true);
     EXPECT_EQ(e.ok(), false);
-    EXPECT_EQ(e.ng(), true);
+    EXPECT_EQ(e.failed(), true);
     EXPECT_EQ(e.what(), std::string(p.what));
     EXPECT_EQ(stack.size(), 1);
     EXPECT_EQ(stack[0]->what(), std::string(p.what));
@@ -63,7 +63,7 @@ TEST_P(InitTest, init_what_c) {
 
     EXPECT_EQ(e, true);
     EXPECT_EQ(e.ok(), false);
-    EXPECT_EQ(e.ng(), true);
+    EXPECT_EQ(e.failed(), true);
     EXPECT_EQ(e.what(), std::string(p.what));
     EXPECT_EQ(stack.size(), 1);
     EXPECT_EQ(stack[0]->what(), std::string(p.what));

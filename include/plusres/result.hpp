@@ -33,8 +33,12 @@ public:
     virtual ~ResultBase() {}
 
 public:
-    inline operator bool() const {
-        return !error_;
+    inline bool ok() const {
+        return error_.ok();
+    }
+
+    inline bool failed() const {
+        return error_.failed();
     }
 
     /** @throws E */
@@ -83,8 +87,8 @@ struct Void {
 template<typename V = Void>
 class Result : public ResultBase<V, plusres::Error> {
 public:
-    Result(const V & v) noexcept : ResultBase<V, Error>(v, Error(false)) {}
-    Result(const V && v) noexcept : ResultBase<V, Error>(std::move(v), Error(false)) {}
+    Result(const V & v) noexcept : ResultBase<V, Error>(v, Error(plusres::Succeeded)) {}
+    Result(const V && v) noexcept : ResultBase<V, Error>(std::move(v), Error(plusres::Succeeded)) {}
     Result(const Error & e) noexcept : ResultBase<V, Error>(V(), e) {}
 
     virtual ~Result() {}
